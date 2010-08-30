@@ -25,7 +25,11 @@ class CapMailer < ActionMailer::Base
     puts "Deprecated 'configure_capistrano_mailer'.  Please update your capistrano_mailer configuration to use 'configure' instead of 'configure_capistrano_mailer'"
   end
 
-  self.template_root = default_base_config[:template_root]
+  if self.respond_to? :prepend_view_path
+    prepend_view_path default_base_config[:template_root]
+  else
+    self.template_root = default_base_config[:template_root]
+  end
 
   def self.reloadable?() false end
     
