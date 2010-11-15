@@ -1,9 +1,8 @@
 author:
-  name: Peter Boling
-  homepage: http://www.peterboling.com
-summary: Sends rails deployment notification emails from Capistrano
-homepage: http://github.com/pboling/capistrano_mailer/tree/master
-plugin: http://github.com/pboling/capistrano_mailer.git
+  name: 3Crowd Technologies, Justin Lynn, Peter Boling
+  homepage: http://www.3crowd.com, http://www.peterboling.com
+summary: Sends rails deployment notification emails from Capistrano without Rails Requirments
+homepage: http://github.com/3crowd/capistrano_mailer_railsless/tree/master
+plugin: http://github.com/3crowd/capistrano_mailer_railsless.git
 license: MIT
 version: 3.2.1
-rails_version: 1.2.6+

@@ -4,7 +4,7 @@ require 'rubygems/specification'
 
 class BuildGemTest < Test::Unit::TestCase
   def test_build_gem
-    data = File.read(File.join(File.dirname(__FILE__), '..', 'capistrano_mailer.gemspec'))
+    data = File.read(File.join(File.dirname(__FILE__), '..', 'capistrano_mailer_railsless.gemspec'))
     spec = nil
 
     if data !~ %r{!ruby/object:Gem::Specification}

@@ -32,14 +32,11 @@ http://github.com/pboling/capistrano_mailer
 
 == Requirements
 
-  * at least Rails 1.2.6 (might work with older versions, but has not been tested)
-
   * at least Capistrano 2.4.3 (might work with capistrano as old as 2.1.0, but has not been tested)
 
   * Known to be compatible with SCMs as of version 3.1.2: Perforce, SVN, and Git
 
   * Known to be compatible with, but does not require, the deprec gem.
-
 
 == Installation
 
@@ -56,7 +53,7 @@ Gemcutter is the hot new gem host, and you can use it like this:
 
   [sudo] gem install gemcutter
   [sudo] gem tumble # makes gemcutter gem source first in line, if you haven't already
-  [sudo] gem install capistrano_mailer
+  [sudo] gem install capistrano_mailer_railsless
 
 Then cd to your rails app to optionally freeze the gem into your app:
 
@@ -67,24 +64,7 @@ Then cd to your rails app to optionally freeze the gem into your app:
 Plugin using Git:
 
   # Installation as plugin works... but the setup is slightly different. (See Usage below)
-  ./script/plugin install git://github.com/pboling/capistrano_mailer.git
-
-Using SVN (deprecated, repository is no longer updated):
-
-  ./script/plugin install http://capistrano-mailer.googlecode.com/svn/trunk/capistrano_mailer
-
-== Upgrading
-
-From version 3.1.x to version 3.2.x
-
-1. Update the way CapistranoMailer is configured using the new method: CapMailer.configure (see Usage below).
-2. require the cap mailer config file (see Usage below)
-
-From version 2.1.0 to version 3.1.x:
-
-1. Update the way CapistranoMailer is configured using the new method: CapMailer.configure_capistrano_mailer (changed in later versions to just 'configure') (see Usage below).
-2. Update the require statement at the top of deploy.rb, see below (note for plugin change from capistrano_mailer to capistrano/mailer).
-3. Change the mailer.send to mailer.send_notification_email in your cap recipe.
+  ./script/plugin install git://github.com/3crowd/capistrano_mailer_railsless.git
 
 == Usage
 
@@ -201,6 +181,7 @@ From version 2.1.0 to version 3.1.x:
 
 Peter Boling (pboling) - Wrote original
 Dave Nolan (textgoeshere) - lots of refactoring merged into 3.2 release
+Justin Lynn - removed rails specificity and defaults from codebase
 
 == Contributors
 
@@ -209,10 +190,13 @@ mixonix - SCMs compatibility
 greut - SCMs compatibility
 
 ----------------------------------------------------------------------------------
+  Modified by Justin Lynn to no longer require Rails, 3Crowd Technologies, Inc. (http://www.3crowd.com).
+  
   This plugin is a collaboration between Sagebit, LLC (http://www.sagebit.com) and Peter Boling (http://www.peterboling.com).
   Written initially while Peter Boling was working at Sagebit for use in various projects.
 
   Author: Peter Boling, peter.boling at gmail dot com
 
+  Copyright (c) 2010 3Crowd Technologies, Inc. released under the MIT license
   Copyright (c) 2009 Peter Boling of 9thBit LLC, released under the MIT license
   Copyright (c) 2007-8 Sagebit LLC, released under the MIT license

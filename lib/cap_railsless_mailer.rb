@@ -1,10 +1,10 @@
-class CapMailer < ActionMailer::Base
+class CapRailslessMailer < ActionMailer::Base
 
   @@default_base_config ||= {
-    :sender_address           => %("#{(defined?(Rails) ? Rails.env.capitalize : defined?(RAILS_ENV) ? RAILS_ENV.capitalize : defined?(ENV) ? ENV['RAILS_ENV'] : "")} Capistrano Deployment" <capistrano.mailer@example.com>),
+    :sender_address           => %("Capistrano Deployment" <capistrano.mailer@example.com>),
     :recipient_addresses      => [],
     # Customize the subject line
-    :subject_prepend          => "[DEPLOYMENT]-[#{(defined?(Rails) ? Rails.env.capitalize : defined?(RAILS_ENV) ? RAILS_ENV.capitalize : defined?(ENV) ? ENV['RAILS_ENV'] : "")}] ",
+    :subject_prepend          => "[DEPLOYMENT] ",
     :subject_append           => nil,
     # Include which sections of the deployment email?
     :sections                 => %w(deployment release_data source_control latest_release previous_release other_deployment_info extra_information),
@@ -26,17 +26,11 @@ class CapMailer < ActionMailer::Base
     default :from => default_base_config[:sender_address]
   end
 
-  def self.configure_capistrano_mailer(&block)
-    puts "Deprecated 'configure_capistrano_mailer'.  Please update your capistrano_mailer configuration to use 'configure' instead of 'configure_capistrano_mailer'"
-  end
-
   def self.reloadable?() false end
 
   def notification_email(cap, config = {}, *args)
     @options = { :release_data => {}, :extra_information => {}, :data => {} }.merge(args.extract_options!)
     @config  = default_base_config.merge(config.reverse_merge({
-          :rails_env          => cap.rails_env,
-          :host               => cap.host,
           :task_name          => cap.task_name,
           :application        => cap.application,
           :repository         => cap.repository,
@@ -61,9 +55,6 @@ class CapMailer < ActionMailer::Base
           :previous_revision  => cap.previous_revision,
           :run_method         => cap.run_method,
           :latest_release     => cap.latest_release
-
-          #This does not appear to be a capistrano variable:
-          #:site_url           => cap.site_url
     }))
 
     @date             = Date.today.to_s
