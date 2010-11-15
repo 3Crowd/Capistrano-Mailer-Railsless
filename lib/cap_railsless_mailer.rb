@@ -68,7 +68,10 @@ class CapRailslessMailer < ActionMailer::Base
     @application      = config[:application]
     @repo_end         = repo_end
 
-    mail(:to => @config[:recipient_addresses], :subject => subject_line)
+    mail(:to => @config[:recipient_addresses], :subject => subject_line) do |format|
+      format.text
+      format.html
+    end
   end
 
   private

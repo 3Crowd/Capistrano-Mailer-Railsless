@@ -29,7 +29,7 @@
             render :partial => 'section.html.erb', :locals => {:section_title => section, :data => data}
           end
         end
-      }.join unless @sections.nil? %>
+      }.join.html_safe unless @sections.nil? %>
    </div>
    
 	</body>
