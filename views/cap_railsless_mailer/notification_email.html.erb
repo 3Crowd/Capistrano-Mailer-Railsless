@@ -19,6 +19,7 @@
       <% end %>
 
       <p style="margin: 10px 20px; font-weight: bold;">Released: <%= @date %> at <%= @time %></p>
+      <p style="margin: 10px 20px; font-weight: bold;">Released By: <%= @config[:user] %></p>
       
       <%= @sections.map { |section|
         data = @section_data[section.to_sym]

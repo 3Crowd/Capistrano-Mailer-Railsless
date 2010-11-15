@@ -4,7 +4,8 @@
     <%= @site_name %> <%=@task_name.titleize unless @task_name.nil? %>
 ===========================================================
       Released: <%= @date %> at <%= @time %>
-      
+      Released By: <%= @config[:user] %>
+
       <% @sections.each do |section| %>
        <% data = @section_data[section.to_sym] %>
        <% if !data.empty? %>

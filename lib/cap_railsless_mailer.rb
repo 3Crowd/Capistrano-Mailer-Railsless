@@ -54,7 +54,8 @@ class CapRailslessMailer < ActionMailer::Base
           :latest_revision    => cap.latest_revision,
           :previous_revision  => cap.previous_revision,
           :run_method         => cap.run_method,
-          :latest_release     => cap.latest_release
+          :latest_release     => cap.latest_release,
+          :user		      => cap.user
     }))
 
     @date             = Date.today.to_s
