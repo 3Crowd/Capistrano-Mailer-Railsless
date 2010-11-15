@@ -22,7 +22,7 @@ module Capistrano
       end
     end
 
-    include CapistranoRailslessMailer
+    include RailslessCapistranoMailer
   end
 end
 

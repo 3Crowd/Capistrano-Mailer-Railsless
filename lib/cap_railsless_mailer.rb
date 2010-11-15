@@ -89,7 +89,7 @@ class CapRailslessMailer < ActionMailer::Base
     def subject_line
       #The subject prepend and append are useful for people to setup filters in mail clients.
       user = config[:user] ? " by #{config[:user]}" : ""
-      middle = config[:subject] ? config[:subject] : "[#{config[:rails_env].upcase}][#{repo_end}] #{inferred_command}#{user}"
+      middle = config[:subject] ? config[:subject] : "[#{repo_end}] #{inferred_command}#{user}"
       "#{config[:subject_prepend]}#{middle}#{config[:subject_append]}"
     end
 
