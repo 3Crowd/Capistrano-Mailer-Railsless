@@ -59,7 +59,7 @@ class CapRailslessMailer < ActionMailer::Base
 
     @date             = Date.today.to_s
     @time             = Time.now.strftime("%I:%M %p").to_s
-    @inferred_command = "cap #{@config[:rails_env]} #{@config[:task_name]}"
+    @inferred_command = "cap #{@config[:task_name]}"
     @task_name        = @config[:task_name] || "unknown"
     @site_name        = config[:site_name]
     @sections         = config[:sections]
@@ -109,7 +109,6 @@ class CapRailslessMailer < ActionMailer::Base
       {
         :date             => date,
         :time             => time,
-        :rails_env        => config[:rails_env],
         :task_name        => task_name,
         :inferred_command => inferred_command,
         :host             => config[:host],
