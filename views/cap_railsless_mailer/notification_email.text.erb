@@ -5,7 +5,7 @@
 ===========================================================
       Released: <%= @date %> at <%= @time %>
       
-      <%@sections.each { |section| %>
+      <% @sections.each do |section| %>
        <% data = @section_data[section.to_sym] %>
        <% if !data.empty? %>
          <% if %w(extra_information release_data).include?(section) %>
@@ -13,5 +13,5 @@
          <% else %>
            <%= render :partial => 'section.text.erb', :locals => {:section_title => section, :data => data} %>
          <% end %>
-        end
-      <%} %>
+        <% end %>
+      <% end unless @sections.nil? %>

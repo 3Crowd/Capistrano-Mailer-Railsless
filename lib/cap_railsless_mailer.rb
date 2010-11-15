@@ -61,17 +61,14 @@ class CapRailslessMailer < ActionMailer::Base
     @time             = Time.now.strftime("%I:%M %p").to_s
     @inferred_command = "cap #{@config[:task_name]}"
     @task_name        = @config[:task_name] || "unknown"
-    @site_name        = config[:site_name]
-    @sections         = config[:sections]
+    @site_name        = @config[:site_name]
+    @sections         = @config[:sections]
     @section_data     = section_data_hash
-    @site_url         = config[:site_url]
-    @application      = config[:application]
+    @site_url         = @config[:site_url]
+    @application      = @config[:application]
     @repo_end         = repo_end
 
-    mail(:to => @config[:recipient_addresses], :subject => subject_line) do |format|
-      format.text
-      format.html
-    end
+    mail(:to => @config[:recipient_addresses], :subject => subject_line)
   end
 
   private
