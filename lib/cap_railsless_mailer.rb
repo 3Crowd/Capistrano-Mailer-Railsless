@@ -55,7 +55,8 @@ class CapRailslessMailer < ActionMailer::Base
           :previous_revision  => cap.previous_revision,
           :run_method         => cap.run_method,
           :latest_release     => cap.latest_release,
-          :user		      => cap.user
+          :user		      => cap.user,
+          :stage	      => (cap.respond_to?(:stage) ? cap.stage : "" )
     }))
 
     @date             = Date.today.to_s
@@ -90,7 +91,7 @@ class CapRailslessMailer < ActionMailer::Base
     def subject_line
       #The subject prepend and append are useful for people to setup filters in mail clients.
       user = config[:user] ? " by #{config[:user]}" : ""
-      middle = config[:subject] ? config[:subject] : "[#{repo_end}] #{inferred_command}#{user}"
+      middle = config[:subject] ? config[:subject] : "[#{repo_end}]#{!config[:stage].nil? ? '[' + config[:stage].to_s.upcase + ']' : ''} #{inferred_command}#{user}"
       "#{config[:subject_prepend]}#{middle}#{config[:subject_append]}"
     end
 
