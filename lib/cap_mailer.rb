@@ -9,26 +9,29 @@ class CapMailer < ActionMailer::Base
     # Include which sections of the deployment email?
     :sections                 => %w(deployment release_data source_control latest_release previous_release other_deployment_info extra_information),
     :site_name                => "",
-    :email_content_type       => "text/html",
-    :template_root            => "#{File.dirname(__FILE__)}/../views"
+    :format                   => :html,
+    :view_path                => "#{File.dirname(__FILE__)}/../views"
   }
 
   cattr_accessor :default_base_config
   attr_accessor  :config, :options
   attr_accessor  :date, :time, :inferred_command, :task_name, :repo_end
-  
+
   def self.configure(&block)
     yield @@default_base_config
+
+    self.view_paths = [default_base_config[:view_path]]
+
+    default :format => default_base_config[:format].to_s
+    default :from => default_base_config[:sender_address]
   end
 
   def self.configure_capistrano_mailer(&block)
     puts "Deprecated 'configure_capistrano_mailer'.  Please update your capistrano_mailer configuration to use 'configure' instead of 'configure_capistrano_mailer'"
   end
 
-  self.template_root = default_base_config[:template_root]
-
   def self.reloadable?() false end
-    
+
   def notification_email(cap, config = {}, *args)
     @options = { :release_data => {}, :extra_information => {}, :data => {} }.merge(args.extract_options!)
     @config  = default_base_config.merge(config.reverse_merge({
@@ -58,56 +61,45 @@ class CapMailer < ActionMailer::Base
           :previous_revision  => cap.previous_revision,
           :run_method         => cap.run_method,
           :latest_release     => cap.latest_release
-    
+
           #This does not appear to be a capistrano variable:
           #:site_url           => cap.site_url
     }))
-    
+
     @date             = Date.today.to_s
     @time             = Time.now.strftime("%I:%M %p").to_s
     @inferred_command = "cap #{@config[:rails_env]} #{@config[:task_name]}"
     @task_name        = @config[:task_name] || "unknown"
-    
-    repo  = @config[:repository]
-    x     = repo.include?('/') ? repo.rindex('/') - 1 : repo.length
-    front = repo.slice(0..x)
-    back  = repo.sub(front, '')
-    unless back == 'trunk'
-      x = front.include?('/') ? front.rindex('/') - 1 : front.length
-      front = front.slice(0..x)
-    end
-    @repo_end = repo.sub(front, '')
-	  
-    subject       subject_line
-    recipients    @config[:recipient_addresses]
-    from          @config[:sender_address]
-    content_type  @config[:email_content_type]
+    @site_name        = config[:site_name]
+    @sections         = config[:sections]
+    @section_data     = section_data_hash
+    @site_url         = config[:site_url]
+    @application      = config[:application]
+    @repo_end         = repo_end
 
-    body          body_data_hash
+    mail(:to => @config[:recipient_addresses], :subject => subject_line)
   end
 
   private
-  
+
+    def repo_end
+      repo  = @config[:repository]
+      x     = repo.include?('/') ? repo.rindex('/') - 1 : repo.length
+      front = repo.slice(0..x)
+      back  = repo.sub(front, '')
+      unless back == 'trunk'
+        x = front.include?('/') ? front.rindex('/') - 1 : front.length
+        front = front.slice(0..x)
+      end
+
+      repo.sub(front, '')
+    end
+
     def subject_line
       #The subject prepend and append are useful for people to setup filters in mail clients.
       user = config[:user] ? " by #{config[:user]}" : ""
       middle = config[:subject] ? config[:subject] : "[#{config[:rails_env].upcase}][#{repo_end}] #{inferred_command}#{user}"
       "#{config[:subject_prepend]}#{middle}#{config[:subject_append]}"
-    end
-
-    def body_data_hash
-      options[:data].merge({
-        :section_data     => section_data_hash,
-        :date             => date,
-        :time             => time,
-        :task_name        => task_name,
-        :inferred_command => inferred_command,
-        :repo_end         => repo_end,
-        :site_name        => config[:site_name],
-        :site_url         => config[:site_url],
-        :application      => config[:application],
-        :sections         => config[:sections]
-      })
     end
 
     def section_data_hash
