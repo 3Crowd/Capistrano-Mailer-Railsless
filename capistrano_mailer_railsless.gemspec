@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "capistrano_mailer_railsless"
-  s.version = "3.2.8"
+  s.version = "3.2.9"
 
   s.authors = ["3Crowd Technologies, Inc.", "Justin Lynn", "Peter Boling", "Dave Nolan"]
 
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir.glob("{lib,views}/**/*") + %w(README.rdoc Rakefile VERSION.yml about.yml capistrano_mailer_railsless.gemspec init.rb)
 
-  s.homepage = %q{http://github.com/3crowd/capistrano_mailer_railsless}
+  s.homepage = %q{http://github.com/3crowd/Capistrano_Mailer_Railsless}
 
   s.rdoc_options = ["--charset=UTF-8"]
 
