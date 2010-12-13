@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir.glob("{lib,views}/**/*") + %w(README.rdoc Rakefile VERSION.yml about.yml capistrano_mailer_railsless.gemspec init.rb)
 
-  s.homepage = %q{http://github.com/3crowd/Capistrano_Mailer_Railsless}
+  s.homepage = %q{http://github.com/3Crowd/Capistrano-Mailer-Railsless}
 
   s.rdoc_options = ["--charset=UTF-8"]
 
