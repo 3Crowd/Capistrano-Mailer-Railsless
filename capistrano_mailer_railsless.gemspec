@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "capistrano_mailer_railsless"
-  s.version = "3.2.10"
+  s.version = "3.2.11"
 
   s.authors = ["3Crowd Technologies, Inc.", "Justin Lynn", "Peter Boling", "Dave Nolan"]
 

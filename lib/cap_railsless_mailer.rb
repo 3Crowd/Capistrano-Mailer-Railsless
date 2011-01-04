@@ -114,7 +114,8 @@ class CapRailslessMailer < ActionMailer::Base
         :task_name        => task_name,
         :inferred_command => inferred_command,
         :host             => config[:host],
-        :release_name     => config[:release_name]
+        :release_name     => config[:release_name],
+	:stage		  => config[:stage]
       }
     end
 
